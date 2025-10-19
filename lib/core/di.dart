@@ -17,10 +17,12 @@ Future<void> configureDependencies() async {
       final dio = Dio(
         BaseOptions(
           baseUrl: EnvConfig.newsApiBaseUrl,
-          connectTimeout: const Duration(seconds: 100),
-          receiveTimeout: const Duration(seconds: 100),
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 15),
+          sendTimeout: const Duration(seconds: 10),
         ),
       );
+
       dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
       return dio;
     });
@@ -46,8 +48,6 @@ Future<void> configureDependencies() async {
   }
 
   if (!serviceLocator.isRegistered<FavoritesBloc>()) {
-    serviceLocator.registerFactory<FavoritesBloc>(
-      () => FavoritesBloc(serviceLocator<IFavoritesRepository>()),
-    );
+    serviceLocator.registerFactory<FavoritesBloc>(() => FavoritesBloc(serviceLocator<IFavoritesRepository>()));
   }
 }
