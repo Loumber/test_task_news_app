@@ -48,6 +48,7 @@ class _ArticlesListState extends State<ArticlesList> {
         }
 
         return CupertinoScrollbar(
+          controller: _scrollController,
           child: CustomScrollView(
             controller: _scrollController,
             slivers: [

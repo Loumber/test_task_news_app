@@ -52,7 +52,7 @@ class HeadlinesBloc extends Bloc<HeadlinesEvent, HeadlinesState> {
     HeadlinesFetchMoreRequested event,
     Emitter<HeadlinesState> emit,
   ) async {
-    if (!_hasNextPage || state.status == HeadlinesStatus.loadingMore) return;
+    if (_hasNextPage) return;
 
     emit(state.copyWith(status: HeadlinesStatus.loadingMore));
 
